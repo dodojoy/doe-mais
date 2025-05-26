@@ -38,7 +38,7 @@ export default function LoginForm({ setAction }: Props) {
       await AsyncStorage.setItem('loggedIn', 'true');
       await signInWithEmailAndPassword(auth, email, password);
       console.log('Login salvo no AsyncStorage');
-      // router.push("/(tabs)");
+      router.push("/(tabs)");
     } catch (error) {
       console.error('Erro ao salvar login:', error);
       Alert.alert("Erro", "Não foi possível salvar o login.");

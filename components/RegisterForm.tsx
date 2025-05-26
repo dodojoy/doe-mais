@@ -6,7 +6,7 @@ import MaskInput from 'react-native-mask-input';
 import { auth } from '../services/firebase';
 
 type Props = {
-  setAction: Dispatch<SetStateAction<"none" | "login" | "register">>;
+  setAction: Dispatch<SetStateAction<"none" | "login" | "register" | "forgot-password">>;
 };
 
 export default function RegisterForm({ setAction }: Props) {

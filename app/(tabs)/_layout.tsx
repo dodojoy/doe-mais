@@ -1,6 +1,8 @@
+import { useAuth } from "@/contexts/authContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import type { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
+import { ActivityIndicator, View } from "react-native";
 
 const ACTIVE_COLOR = "green";
 const INACTIVE_COLOR = "gray";
@@ -14,6 +16,21 @@ const icons = {
 } as const;
 
 export default function TabLayout() {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  if (isAuthenticated === undefined) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (!isAuthenticated) {
+    router.replace("/login");
+    return null;
+  }
   return (
     <Tabs
       screenOptions={({ route }): BottomTabNavigationOptions => ({

@@ -1,3 +1,5 @@
+import { auth } from "@/services/firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Alert, Animated, Easing, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
@@ -20,12 +22,14 @@ export default function ForgotPassword({ setAction }: Props) {
     }).start();
   }, []);
 
-  const handleSendPassword = () => {
+  const handleSendPassword = async () => {
     if (!email) {
       Alert.alert("Erro", "Por favor, digite seu email.");
       return;
     }
 
+    const response = await sendPasswordResetEmail(auth, email);
+    console.log(response);
     console.log("Email enviado para:", email);
 
     Alert.alert("Email enviado!", "Você receberá um email para redefinir sua senha.");

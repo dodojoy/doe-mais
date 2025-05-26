@@ -1,9 +1,11 @@
 import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from "expo-router";
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useRef, useState } from "react";
 import { Alert, Animated, Easing, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { auth } from '../services/firebase';
 
 type Props = {
   setAction: (action: "login" | "register" | "forgot-password" | "none") => void;
@@ -34,8 +36,9 @@ export default function LoginForm({ setAction }: Props) {
 
     try {
       await AsyncStorage.setItem('loggedIn', 'true');
+      await signInWithEmailAndPassword(auth, email, password);
       console.log('Login salvo no AsyncStorage');
-      router.push("/(tabs)");
+      // router.push("/(tabs)");
     } catch (error) {
       console.error('Erro ao salvar login:', error);
       Alert.alert("Erro", "Não foi possível salvar o login.");

@@ -1,7 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Alert, Animated, Easing, Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import MaskInput from 'react-native-mask-input';
+import { auth } from '../services/firebase';
 
 type Props = {
   setAction: Dispatch<SetStateAction<"none" | "login" | "register">>;
@@ -26,7 +28,7 @@ export default function RegisterForm({ setAction }: Props) {
   }, []);
 
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!nome || !telefone || !email || !senha) {
       Alert.alert("Erro", "Preencha todos os campos corretamente.");
       return;
@@ -40,8 +42,15 @@ export default function RegisterForm({ setAction }: Props) {
       senha,
     });
 
-    Alert.alert("Cadastro realizado!", "Você será redirecionado para o login.");
-    setAction("login");
+    try {
+      const response = await createUserWithEmailAndPassword(auth, email, senha);
+      console.log(response);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível criar a conta');
+    }
+
+    // Alert.alert("Cadastro realizado!", "Você será redirecionado para o login.");
+    // setAction("login");
   }
 
   const handleGoogleLogin = () => {

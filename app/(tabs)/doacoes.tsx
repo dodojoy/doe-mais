@@ -1,11 +1,46 @@
-import { Text, View } from 'react-native';
+import { ScrollView, Text } from 'react-native';
+import DoacaoCard from '../../components/DoacaoCard';
 
 export default function DoacoesScreen() {
   return (
-    <View className="flex-1 bg-green-main justify-between px-8 py-15">
-      <Text className="text-7xl font-bold text-white mb-5">
-        Tela de Doações
+    <ScrollView className="flex-1 bg-white p-4">
+      <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 8, color: '#222', fontFamily: 'system-ui' }}>
+        Adicionados Recentemente
       </Text>
-    </View>
+      <DoacaoCard
+        alimento="45Kg de Arroz Branco"
+        localizacao="Comunidade Esperança - Av. dos Estudantes"
+        imagem={require('../../assets/images/arroz.jpg')}
+        progresso={65}
+      />
+      <DoacaoCard
+        alimento="45Kg de Arroz Branco"
+        localizacao="Comunidade Esperança - Av. dos Estudantes"
+        imagem={require('../../assets/images/feijao.jpg')}
+        progresso={25}
+      />
+      <DoacaoCard
+        alimento="45Kg de Arroz Branco"
+        localizacao="Comunidade Esperança - Av. dos Estudantes"
+        imagem={require('../../assets/images/arroz.jpg')}
+        progresso={65}
+      />
+      <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 8, color: '#222', fontFamily: 'system-ui' }}>
+        Esta semana
+      </Text>
+      <DoacaoCard
+        alimento="10Kg de Feijão Preto"
+        localizacao="Bairro Novo Horizonte - Rua Central"
+        imagem={require('../../assets/images/feijao.jpg')}
+        progresso={40}
+      />
+      <DoacaoCard
+        alimento="45Kg de Arroz Branco"
+        localizacao="Comunidade Esperança - Av. dos Estudantes"
+        imagem={require('../../assets/images/arroz.jpg')}
+        progresso={65}
+      />
+
+    </ScrollView>
   );
 }
